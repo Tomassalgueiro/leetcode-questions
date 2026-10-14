@@ -12,7 +12,7 @@ int searchInsert(vector<int>& nums, int target) {
 
 	while(left <= right) {
 	 	middle = left + (right - left) / 2;
-		if (target == nums[middle]) { break; }
+		if (target == nums[middle]) { return middle; }
 
 		if (target > nums[middle]) {
 			left = middle + 1;
@@ -20,14 +20,9 @@ int searchInsert(vector<int>& nums, int target) {
 		else {
 			right = middle - 1;
 		}
-
 	}
 
-	if (target >= nums[middle]){
-		middle++;
-	}
-
-	return middle; 
+	return left; 
 }
 
 int main(){
