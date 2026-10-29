@@ -3,24 +3,42 @@
 # where to sum everything, i hope this is understandable
 def rangeAddQueries(n: int, queries: list[list[int]]) -> list[list[int]]:
 
-    mat = [[0 for _ in range(n)] for _ in range(n)] 
-#    print("Initial mat: ", end="")
-#    print(mat)
+    diffMat = [[0 for _ in range(n+1)] for _ in range(n+1)]  
     i = 0
+
     while i < len(queries):
         top,left,bottom,right = queries[i]
-#        print("Query: ", top, " ", left, " ", bottom, " ", right)
 
-        for j in range (top, bottom+1):
-            for k in range (left, right+1):
-                mat[j][k] = mat[j][k] + 1
-
-#        print("First query: ", end="")
-#        print(mat)
+        diffMat[top][left] += 1
+        diffMat[top][right + 1] -= 1
+        diffMat[bottom + 1][left] -= 1
+        diffMat[bottom + 1][right + 1] += 1
 
         i += 1
 
+    mat = [[0 for _ in range(n)] for _ in range(n)] 
+    print(diffMat)
+
+    for j in range(n):
+            for k in range(n):
+                if j > 0:
+                    above = mat[j - 1][k]
+                else:
+                    above = 0
+
+                if k > 0:
+                    left_val = mat[j][k - 1]
+                else:
+                    left_val = 0
+
+                if k > 0 and j > 0:
+                    diagonal = mat[j - 1][k - 1]
+                else:
+                    diagonal = 0
+
+                mat[j][k] = diffMat[j][k] + above + left_val - diagonal
+
     return mat
 
-print("Result: ", end="")
-print(rangeAddQueries(3,[[1,1,2,2],[0,0,1,1]]))
+res = rangeAddQueries(3,[[1,1,2,2],[0,0,1,1]])
+print(res)
