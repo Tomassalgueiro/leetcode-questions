@@ -1,7 +1,10 @@
 def lengthOfLastWord(s: str) -> int:
 
+    if len(s) == 1 and s[0] != " ":
+        return 1
+
     count = 0
-    for i in range(len(s)-1, 0, -1):
+    for i in range(len(s)-1, -1, -1):
         if s[i] == " " and count == 0:
             continue
         elif s[i] == " ":
@@ -11,5 +14,7 @@ def lengthOfLastWord(s: str) -> int:
 
     return count
 
-print(lengthOfLastWord("ola o meu nome e tomas"))
-print(lengthOfLastWord("ola o meu nome e tomas ")) 
+#print(lengthOfLastWord("ola o meu nome e tomas"))
+#print(lengthOfLastWord("ola o meu nome e tomas ")) 
+print(lengthOfLastWord("a"))
+print(lengthOfLastWord("a "))
